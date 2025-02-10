@@ -48,7 +48,7 @@ def lines_to_words(lines):
         # Loop over each word in the line
         for word in line_words:
             # Remove punctuation and convert to lowercase
-            word = word.strip(".:;,?!- ")
+            word = word.strip(".:;,?!- \n")
             word = word.lower()
             # Add the word to the words list
             if word:
