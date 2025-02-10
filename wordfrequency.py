@@ -19,8 +19,11 @@ def read_file(file_name):
     file = open(file_name,  encoding="utf-8")
     innhold = file.read()
     linjer = innhold.split("\n")
+    
+    linjer = [linje for linje in linjer if linje.strip()]
+    
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
-    return linjer  # TODO: Du må erstatte denne linjen
+    return linjer  
 
 
 def lines_to_words(lines):
