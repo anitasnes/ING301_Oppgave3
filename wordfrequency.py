@@ -16,8 +16,11 @@ def read_file(file_name):
     Denne funksjonen får et filnavn som argument og skal gi
     tilbake en liste av tekststrenger som representerer linjene i filen.
     """
+    file = open(file_name,  encoding="utf-8")
+    innhold = file.read()
+    linjer = innhold.split("\n")
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    return linjer  # TODO: Du må erstatte denne linjen
 
 
 def lines_to_words(lines):
@@ -34,8 +37,22 @@ def lines_to_words(lines):
     """
     # Tips: se på "split()"-funksjonen https://docs.python.org/3/library/stdtypes.html#str.split
     # i tillegg kan "strip()": https://docs.python.org/3/library/stdtypes.html#str.strip
+    words = []
+    for linje in lines:
+        # Split the line into words
+        line_words = linje.split(" ")
+
+        # Loop over each word in the line
+        for word in line_words:
+            # Remove punctuation and convert to lowercase
+            word = word.strip(".:;,?!- ")
+            word = word.lower()
+            # Add the word to the words list
+            if word:
+                words.append(word)
+             
     # og "lower()": https://docs.python.org/3/library/stdtypes.html#str.lower være nyttig
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    return words
 
 
 def compute_frequency(words):
@@ -46,7 +63,15 @@ def compute_frequency(words):
 
     F. eks. Inn ["hun", "hen", "han", "hen"], Ut: {"hen": 2, "hun": 1, "han": 1}
     """
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    frequency = {}  # Initialiser dictionaryen for å lagre frekvenser
+    for word in words:
+        # Hvis ordet allerede finnes i dictionaryen, øk verdien med 1
+        if word in frequency:
+            frequency[word] += 1
+        # Hvis ordet ikke finnes, legg det til med verdien 1
+        else:
+            frequency[word] = 1
+    return frequency
 
 
 FILL_WORDS = ['og', 'dei', 'i', 'eg', 'som', 'det', 'han', 'til', 'skal', 'på', 'for', 'då', 'ikkje', 'var', 'vera']
@@ -60,7 +85,11 @@ def remove_filler_words(frequency_table):
     Målet med denne funksjonen er at den skal få en frekvenstabll som input og så fjerne alle fyll-ord
     som finnes i FILL_WORDS.
     """
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    frequency_table2 = frequency_table.copy();
+    for word in frequency_table:
+        if word in FILL_WORDS:
+            del frequency_table2[word]
+    return frequency_table2 
 
 
 def largest_pair(par_1, par_2):
@@ -72,7 +101,10 @@ def largest_pair(par_1, par_2):
     """
     # OBS: Tenk også på situasjonen når to tall er lik! Vurder hvordan du vil handtere denne situasjonen
     # kanskje du vil skrive noen flere test metoder ?!
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    if par_1 >= par_2:
+        return par_1
+    else:
+        return par_2
 
 
 def find_most_frequent(frequency_table):
@@ -82,14 +114,24 @@ def find_most_frequent(frequency_table):
     """
     # Tips: se på "dict.items()" funksjonen (https://docs.python.org/3/library/stdtypes.html#dict.items)
     # og kanskje du kan gjenbruke den "largest_pair" metoden som du nettopp har laget
-    return NotImplemented  # TODO: Du må erstatte denne linjen
+    max_word = ""
+    max_count = 0
+
+    # Iterer gjennom dictionaryen
+    for word, count in frequency_table.items():
+        count = largest_pair(max_count, count)
+        
+        if largest_pair(max_count, count) == count:
+            max_word = word
+
+    return max_word
 
 
-############################################################
-#                                                          #
-# Her slutter dendelen av filen som er relevant for deg ;-)#
-#                                                          #
-############################################################
+#############################################################
+#                                                           #
+# Her slutter den delen av filen som er relevant for deg ;-)#
+#                                                           #
+#############################################################
 
 
 def main():
