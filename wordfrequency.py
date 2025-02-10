@@ -119,10 +119,10 @@ def find_most_frequent(frequency_table):
 
     # Iterer gjennom dictionaryen
     for word, count in frequency_table.items():
-        count = largest_pair(max_count, count)
         
         if largest_pair(max_count, count) == count:
             max_word = word
+            max_count = count
 
     return max_word
 
